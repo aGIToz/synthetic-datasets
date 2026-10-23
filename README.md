@@ -1,21 +1,17 @@
 # Synthetic Spatio-Temporal Datasets
 
-This repository contains three small synthetic spatio-temporal datasets representing different data types commonly encountered in spatio-temporal analysis:
+This repository contains three small synthetic spatio-temporal datasets representing different data types (https://arxiv.org/pdf/1906.04928) commonly encountered in spatio-temporal analysis.
 
-1. **Point-reference data** — observations associated with sensor identifiers, spatial coordinates, timestamps, and directions.
-2. **Raster-like data** — repeated measurements over a set of spatial locations at regular hourly timestamps.
-3. **Event data** — discrete timestamped events associated with spatial coordinates and event categories.
+The datasets were created for testing and demonstrating spatio-temporal data-processing and feature-extraction workflows of the python library (st_feat - currently under development).
 
-The datasets were created for testing and demonstrating spatio-temporal data-processing and feature-extraction workflows, including work carried out in the **RUSHMORE project**.
-
-All records are synthetic and do not represent real people, real sensor measurements, or real-world reported events.
+All records are synthetic and do not represent real people, real sensor measurements, or real-world reported events. For all three datasets, the spatial coordinates are intended as ordinary geographic longitude/latitude coordinates in WGS 84, i.e. EPSG:4326.
 
 ## Files
 
 | File | Data type | Records | Main characteristics |
 |---|---|---:|---|
-| `synthetic_pointref.csv` | Point-reference | 480 | 10 sensors, 16 timestamps, directional measurements |
-| `synthetic_raster.csv` | Raster-like | 20,160 | 60 spatial locations, 336 hourly timestamps |
+| `synthetic_pointref.csv` | Point-reference | 480 | 10 moving sensors, 16 timestamps, directional measurements |
+| `synthetic_raster.csv` | Raster-like | 20,160 | 60 fixed sensors' spatial locations, 336 hourly timestamps |
 | `synthetic_event.csv` | Event | 100 | Timestamped categorical events at spatial locations |
 
 ---
@@ -24,7 +20,7 @@ All records are synthetic and do not represent real people, real sensor measurem
 
 File: `synthetic_pointref.csv`
 
-The point-reference dataset contains synthetic measurements associated with sensor identifiers and geographic coordinates. It contains **480 observations** from **10 synthetic sensors** (`S01`–`S10`).
+This file contains **480 observations** from **10 synthetic moving sensors**.
 
 The data covers **16 timestamps** between:
 
@@ -37,7 +33,7 @@ Each sensor contributes three directional observations at each timestamp, giving
 10 sensors × 16 timestamps × 3 directions = 480 observations
 ```
 
-The sensor coordinates can vary over time, allowing the dataset to represent point-reference observations with changing spatial positions.
+The sensor coordinates do vary over time, allowing the dataset to represent point-reference observations with changing spatial positions.
 
 ### Columns
 
@@ -69,11 +65,11 @@ S01,7.039737438173713,50.718819103676516,173.3612325498296,2026-01-01T00:00:00+0
 
 ---
 
-## 2. Raster-Like Dataset
+## 2. Raster Dataset
 
 File: `synthetic_raster.csv`
 
-The raster-like dataset contains synthetic values observed repeatedly at **60 spatial locations** over **336 hourly timestamps**. It therefore contains:
+The raster dataset contains synthetic values observed repeatedly at **60 fixed sensors' spatial locations** over **336 hourly timestamps**. It therefore contains:
 
 ```text
 60 spatial locations × 336 timestamps = 20,160 observations
@@ -86,7 +82,6 @@ The temporal coverage is:
 - Temporal resolution: `1 hour`
 - Duration: `14 days`
 
-This dataset can be used to test methods for regular spatio-temporal measurements, temporal statistics, missing-value handling, dimensionality reduction, and other raster-oriented feature-extraction workflows.
 
 ### Columns
 
@@ -129,7 +124,6 @@ The temporal coverage is:
 - Start: `2024-01-01T00:00:00+00:00`
 - End: `2024-03-07T00:00:00+00:00`
 
-The synthetic event categories used in the dataset are `theft` and `assault`. These labels are included purely as example categorical event types and do **not** correspond to real incidents.
 
 ### Columns
 
@@ -171,40 +165,17 @@ Some timestamps in the point-reference dataset contain fractional-second precisi
 
 ---
 
-## Loading the Datasets
-
-The datasets can be loaded directly with pandas:
-
-```python
-import pandas as pd
-
-pointref = pd.read_csv("synthetic_pointref.csv", parse_dates=["t"])
-raster = pd.read_csv("synthetic_raster.csv", parse_dates=["t"])
-events = pd.read_csv("synthetic_event.csv", parse_dates=["time"])
-
-print(pointref.head())
-print(raster.head())
-print(events.head())
-```
-
----
 
 ## Intended Use
 
-These datasets are designed as lightweight synthetic examples for developing, testing, and demonstrating algorithms for different forms of spatio-temporal data.
+These datasets are designed as lightweight synthetic examples for developing, testing, and demonstrating statistical feature extraction utility of the software st_feat (under development).
 
-Example tasks include:
-
-- temporal and spatial descriptive statistics,
-- spatio-temporal feature extraction,
+Example tasks include - temporal and spatial descriptive statistics like:
 - nearest-neighbor and neighborhood statistics,
-- covariance and variogram analysis,
-- missing-data handling,
-- raster/time-series feature extraction,
-- event-distribution analysis, and
-- reproducible software examples and tests.
-
-They should not be interpreted as measurements of actual environmental, mobility, sensor, or crime phenomena.
+- covariance analysis,
+- kernel pca,
+- gaussian processes for uncertainity, 
+- missing-data handling, etc.
 
 ## Notes
 
