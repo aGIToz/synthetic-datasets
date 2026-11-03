@@ -183,3 +183,6 @@ Example tasks include - temporal and spatial descriptive statistics like:
 - No personal information or tracked individuals are included.
 - Event labels and locations are illustrative and do not describe real incidents.
 - The datasets are intended primarily for research, software testing, demonstrations, and reproducible examples.
+
+## Acknowledgements
+This work was partially funded by the Deutsche Forschungsgemeinschaft (DFG), Germany (“RUSHMORE”, 547610252).
